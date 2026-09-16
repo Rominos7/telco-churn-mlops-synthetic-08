@@ -20,6 +20,7 @@ from src.metrics import (
     PREDICTION_CONFIDENCE,
     generate_latest,
     CONTENT_TYPE_LATEST,
+    HIGH_RISK_PREDICTIONS
 )
 
 from src.api.models import CustomerFeatures, PredictionResponse
@@ -126,6 +127,12 @@ def predict(features: CustomerFeatures):
             model_version=MODEL_VERSION,
             outcome=outcome,
         ).observe(churn_prob)
+
+        if churn_prob > 0.8:
+            HIGH_RISK_PREDICTIONS.labels(
+                model_version=MODEL_VERSION,
+                contract_type=contract_type,
+            ).inc()
 
         return PredictionResponse(
             churn_probability=churn_prob,
