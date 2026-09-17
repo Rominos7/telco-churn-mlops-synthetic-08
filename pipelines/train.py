@@ -132,7 +132,10 @@ def main():
 	df = load_data(DATA_PATH)
 
 	# Basic preprocessing
-	df = df.drop(['customerID'], axis=1, errors='ignore')
+	# customerID/RecordDate/Year are metadata used for drift simulation in the
+	# generator, not real-time features the /predict API receives — drop them
+	# so the trained pipeline's schema matches CustomerFeatures.
+	df = df.drop(['customerID', 'RecordDate', 'Year'], axis=1, errors='ignore')
 	if 'TotalCharges' in df.columns:
 		df['TotalCharges'] = pd.to_numeric(df['TotalCharges'], errors='coerce')
 	df = df.dropna()

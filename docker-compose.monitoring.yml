@@ -177,8 +177,8 @@ volumes:
   loki_data:
   alertmanager_data:
 
-# ── Та сама мережа що в docker-compose.yml
+# ── Та сама мережа що в docker-compose.yml (визначена там; тут просто
+# використовується та сама назва, оскільки обидва файли запускаються разом)
 networks:
   mlops-net:
-    external: true          # вже створена основним docker-compose.yml
-    name: mlops-net         # фіксована назва — не залежить від папки
+    name: mlops-net
