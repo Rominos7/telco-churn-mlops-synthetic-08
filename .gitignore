@@ -4,6 +4,8 @@ __pycache__/
 *$py.class
 *.pyc
 data/*.csv
+data/churn_explanations.json
+results/
 .ipynb_checkpoints/
 #*.pkl
 # C extensions
@@ -140,6 +142,7 @@ celerybeat.pid
 
 # Environments
 .env
+.env.theme9
 .envrc
 .venv
 env/
